@@ -33,9 +33,13 @@ function encode(obj) {
   return btoa(s);
 }
 
-async function readFile(path) {
+async function readFile(path, { required = false } = {}) {
   const res = await api(path);
-  if (res.status === 404) return { value: null, sha: null };
+  // GitHub answers 404 for a private repo the key cannot see, so a missing data file is an access problem.
+  if (res.status === 404) {
+    if (required) throw new Error('missing');
+    return { value: null, sha: null };
+  }
   if (res.status === 401 || res.status === 403) throw new Error('auth');
   if (!res.ok) throw new Error(`GitHub returned ${res.status}`);
   const body = await res.json();
@@ -43,7 +47,7 @@ async function readFile(path) {
 }
 
 async function load() {
-  const [jobs, overrides] = await Promise.all([readFile('data/jobs.json'), readFile('data/overrides.json')]);
+  const [jobs, overrides] = await Promise.all([readFile('data/jobs.json', { required: true }), readFile('data/overrides.json')]);
   state.data = jobs.value || { jobs: [] };
   state.jobs = state.data.jobs || [];
   state.overrides = overrides.value || {};
@@ -189,8 +193,10 @@ async function start() {
     await load();
     return true;
   } catch (err) {
-    if (err.message === 'auth') {
-      toast('That GitHub key was not accepted');
+    if (err.message === 'auth' || err.message === 'missing') {
+      toast(err.message === 'auth'
+        ? 'That GitHub key was not accepted'
+        : "Can't find your job list. Check the key has access to job-tracker-data and the repo name below.");
       showSetup(true);
     } else {
       toast(`Couldn't load: ${err.message}`);
