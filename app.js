@@ -1,7 +1,7 @@
 // Reads the private job list from GitHub and lets you correct a status.
 const DEFAULT_REPO = 'koalaOnEE/job-tracker-data';
-const STATUSES = ['Applied', 'Rejected', 'No reply'];
-const STATUS_CLASS = { Applied: 'applied', Rejected: 'rejected', 'No reply': 'noreply' };
+const STATUSES = ['Applied', 'Interview', 'Rejected', 'No reply'];
+const STATUS_CLASS = { Applied: 'applied', Interview: 'interview', Rejected: 'rejected', 'No reply': 'noreply' };
 
 const $ = (id) => document.getElementById(id);
 const state = { jobs: [], overrides: {}, overridesSha: null, filter: 'All', query: '', data: null };
