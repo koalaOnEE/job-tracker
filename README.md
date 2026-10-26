@@ -1,8 +1,8 @@
 # Job Tracker
 
-A free, phone-friendly page that lists every job you apply to on LinkedIn and Indeed, with its title, company, date applied, and status (**Applied**, **Rejected**, or **No reply**).
+A free, phone-friendly page that lists every job you apply to on LinkedIn and Indeed, with its title, company, date applied, and status (**Applied**, **Interview**, **Rejected**, or **No reply**).
 
-You never type jobs in. A robot in your private `job-tracker-data` repo checks your email every 30 minutes, picks up the "application sent" emails from LinkedIn and Indeed, and watches for rejection emails from employers. Jobs with no answer after 30 days move to **No reply**. If it gets one wrong, tap the status on the page to fix it; your choice is never overwritten. Pick **↺ Auto** to hand it back to the robot.
+You never type jobs in. A robot in your private `job-tracker-data` repo checks your email every 30 minutes, picks up the "application sent" emails from LinkedIn and Indeed, and watches for rejection emails from employers. An email inviting you to interview moves a job to **Interview**. Jobs with no answer after 30 days move to **No reply**. If it gets one wrong, tap the status on the page to fix it; your choice is never overwritten. Pick **↺ Auto** to hand it back to the robot.
 
 Open it at **https://koalaonee.github.io/job-tracker/** and use "Add to Home Screen" so it feels like an app.
 
