@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Job Tracker</title>
+  <meta name="theme-color" content="#2f5bea">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Job Tracker</h1>
+    <button id="refresh" class="icon-btn" aria-label="Refresh" title="Refresh">↻</button>
+    <button id="settings-btn" class="icon-btn" aria-label="Settings" title="Settings">⚙</button>
+  </header>
+
+  <main>
+    <section id="setup" hidden>
+      <h2>Connect your tracker</h2>
+      <p>Paste the GitHub key that lets this page read your private job list. You only do this once on each device.</p>
+      <form id="setup-form">
+        <label>GitHub key
+          <input id="token" type="password" autocomplete="off" placeholder="github_pat_…" required>
+        </label>
+        <label>Data repo
+          <input id="repo" type="text" autocomplete="off" required>
+        </label>
+        <button type="submit" class="primary">Save</button>
+        <button type="button" id="forget" class="link">Remove key from this device</button>
+      </form>
+      <p class="hint">Need a key? See the setup steps in the <a href="https://github.com/koalaOnEE/job-tracker#setup">README</a>.</p>
+    </section>
+
+    <section id="app" hidden>
+      <div id="alerts"></div>
+
+      <nav class="filters" id="filters"></nav>
+      <input id="search" type="search" placeholder="Search title or company" aria-label="Search">
+
+      <ul id="list" class="list"></ul>
+      <p id="empty" class="empty" hidden></p>
+
+      <details id="unmatched" hidden>
+        <summary>Possible rejections we couldn't match</summary>
+        <ul></ul>
+      </details>
+
+      <p id="synced" class="hint"></p>
+    </section>
+  </main>
+
+  <div id="toast" role="status" hidden></div>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
